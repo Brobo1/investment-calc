@@ -1,9 +1,12 @@
 import "./Table.css"
-import {formatter} from "../../util/investment.js";
+import {calculateInvestmentResults, formatter} from "../../util/investment.js";
 
-export function Table({values, initialInvest}) {
-  let totInvest = initialInvest.initialInvestment;
+export function Table({userInput}) {
+  
+  let values      = calculateInvestmentResults(userInput);
   let totInterest = 0;
+  let totCapital  = userInput.initialInvestment;
+  
   return (
 	<table id={"result"}>
 	  <thead>
@@ -16,15 +19,15 @@ export function Table({values, initialInvest}) {
 		</tr>
 	  </thead>
 	  <tbody>
-		  {values.map((value, index) => (
-		<tr key={index}>
+		{values.map((value, index) => (
+		  <tr key={index}>
 			<td>{value.year}</td>
 			<td>{formatter.format(value.valueEndOfYear)}</td>
 			<td>{formatter.format(value.interest)}</td>
 			<td>{formatter.format(totInterest += value.interest)} </td>
-			<td>{formatter.format(totInvest += initialInvest.annualInvestment)} </td>
-		</tr>
-		  ))}
+			<td>{formatter.format(totCapital += userInput.annualInvestment)} </td>
+		  </tr>
+		))}
 	  </tbody>
 	
 	</table>

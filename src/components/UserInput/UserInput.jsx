@@ -3,23 +3,23 @@ import {InputField} from "./InputFields/InputField.jsx";
 
 export function UserInput({
 							handleChange,
-							values,
+							userInput,
 						  }) {
   
   return (
-	<div id={"user-input"}>
+	<section id={"user-input"}>
 	  <div className={"input-group"}>
 		<InputField
 		  name={"initialInvestment"}
 		  labelText={"Initial Investment"}
-		  handleChange={handleChange}
-		  values={values.initialInvestment}
+		  handleChange={(e) => handleChange('initialInvestment', e.target.value)}
+		  value={userInput.initialInvestment}
 		/>
 		<InputField
 		  name={"annualInvestment"}
 		  labelText={"Annual Investment"}
-		  handleChange={handleChange}
-		  values={values.annualInvestment}
+		  handleChange={(e) => handleChange('annualInvestment', e.target.value)}
+		  value={userInput.annualInvestment}
 		/>
 	  </div>
 	  <br/>
@@ -27,16 +27,16 @@ export function UserInput({
 		<InputField
 		  name={"expectedReturn"}
 		  labelText={"Expected Return"}
-		  handleChange={handleChange}
-		  values={values.expectedReturn}
+		  handleChange={(e) => handleChange('expectedReturn', e.target.value)}
+		  value={userInput.expectedReturn}
 		/>
 		<InputField
 		  name={"duration"}
 		  labelText={"Duration"}
-		  handleChange={handleChange}
-		  values={values.duration}
+		  handleChange={(e) => handleChange('duration', e.target.value)}
+		  value={userInput.duration}
 		/>
 	  </div>
-	</div>
+	</section>
   )
 }

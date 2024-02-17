@@ -1,8 +1,7 @@
 import {Header}                     from "./components/Header/Header.jsx";
 import {UserInput}                  from "./components/UserInput/UserInput.jsx";
 import {Table}                      from "./components/Table/Table.jsx";
-import {useEffect, useState}                   from "react";
-import {calculateInvestmentResults} from "./util/investment.js";
+import {useState}        from "react";
 
 const VALUES = {
   initialInvestment: 15000,
@@ -12,29 +11,37 @@ const VALUES = {
 }
 
 function App() {
-  const [values, setValues]   = useState(VALUES);
-  const [results, setResults] = useState([]);
+  const [values, setValues] = useState(VALUES);
   
+  /* Homemade handleChange
   function handleChange(event) {
+  
 	const value = parseFloat(event.target.value);
 	setValues({
 				...values,
 				[event.target.name]: value
 			  });
-	
   }
+  */
   
-  useEffect(() => {
-	setResults(calculateInvestmentResults(values));
-  }, [values]);
-  results.map(result => console.log(result));
+  const validDuration = values.duration > 0;
+  
+  function handleChange(inputIdentifier, newValue) {
+	setValues(prevState => {
+	  return {
+		...prevState,
+		[inputIdentifier]: +newValue,
+	  };
+	});
+  }
   
   return (
 	<>
 	  <div>
 		<Header/>
-		<UserInput handleChange={handleChange} values={values}/>
-		<Table values={results} initialInvest={values}/>
+		<UserInput handleChange={handleChange} userInput={values}/>
+		{!validDuration && <p className={"center"}>Duration needs to be above 0</p>}
+		{validDuration && <Table userInput={values}/>}
 	  </div>
 	</>
   );

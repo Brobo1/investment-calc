@@ -8,6 +8,7 @@ export function InputField({
 	<div>
 	  <label>{labelText}</label>
 	  <input
+		type={"number"}
 		name={name}
 		onChange={handleChange}
 		value={value}/>
